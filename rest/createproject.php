@@ -4,7 +4,7 @@ try{
 	$key = $_REQUEST['key'];
 
 	if (!isset($_COOKIE["auth"])){
-		echo "{'code':'401','message':'User not logged in.'}";
+		http_response_code(401);
 	}else{
 
 		//Get cookie
@@ -24,23 +24,23 @@ try{
 
 			if($get_project_query->fetch()){
 				//Project already exists. Return error
-				echo "{'code':'409','message':'Project already exists.'}";
+				http_response_code(409);
 			}else{
 				//Project doesnt exist. Create it.
 		    	$insert_user_query = $mysqli->prepare("INSERT INTO project (name,created_on,key,created_by) VALUES (?,NOW(),?,?)");
 		    	$insert_user_query->bind_param("ss",$json->email,$json->authtoken);
 		    	$insert_user_query->execute();
 		    	$insert_user_query->close();
-		    	echo "{'code':'200','message':'Project Created.'}";
+		    	http_response_code(200);
 			}
 			$get_project_query->close();
 		}else{
-			echo "{'code':'403','message':'Invalid user found.'}";
+			http_response_code(403);
 		}
 		$get_user_query->close();
 	}
 } catch (Exception $e) {
 	error_log('Unexpected Exception occurred: ' . $e);
-	echo "{'code':'500','message':'Unexpected Exception.'}";
+	http_response_code(500);
 }
 ?>
