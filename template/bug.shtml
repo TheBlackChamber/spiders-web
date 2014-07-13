@@ -1,0 +1,139 @@
+<script type="text/x-handlebars" id="bug">
+  <!--#include virtual="createbug.shtml" -->
+  <div class="content">
+    {{#if model.showloading}}
+      <!--#include virtual="loading.shtml" -->
+    {{else}}
+      {{#if bug}}
+        <div class="bug-details">
+          <div class="control-row">
+            <div class="backlink">
+              {{#if showbacklink}}
+                <a href="index.html" class="backtolist" {{action 'backtolist'}}><-- Back to List</a>
+              {{else}}
+                {{#link-to 'bugs'}}<-- Back to List{{/link-to}}
+              {{/if}}
+            </div>
+            <div class="controls">
+              <button type="button" {{action 'showcreatebug'}} class="createbutton btn btn-primary btn-sm">New Bug</button>
+            </div>
+          </div>
+          <div class="bug-header">
+            <div class="subject-row">
+              <span class="subject">
+                {{#if bug.editingsubject}}
+                  {{input value=bug.subject size="75"}}
+                  <i title="Save" class="clickable fa fa-save" {{action 'saveeditsubject'}}></i>
+                  <i title="Cancel" class="clickable fa fa-ban" {{action 'canceleditsubject'}}></i>
+                {{else}}
+                  {{bug.subject}}
+                  {{#if bug.savingsubject}}
+                    <i title="Saving" class="fa fa-refresh fa-spin"></i>
+                  {{else}}
+                    <i {{action 'editsubject'}} title="Edit Subject" id="edit-subject" class="clickable fa fa-edit"></i>
+                  {{/if}}
+                {{/if}}
+              </span>
+              <span class="number">#{{bug.id}}</span>
+            </div> 
+            <div class="priority-labels-row">
+              <div class="priority-row">
+                <label>Priority:</label> {{#if bug.priority}}<span id="bug-priority-display" class="badge badge-{{unbound bug.priority.css_class}}">{{bug.priority.label}}</span>{{/if}}
+                  <div class="dropdown">
+                    <a data-toggle="dropdown" href="#"><i title="Change Priority" class="clickable fa fa-toggle-down fa-lg"></i></a>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                      {{#each priorities}}
+                        <li class="clickable" role="presentation"><a role="menuitem" {{action 'editpriority' this}}>{{this.label}}</a></li>
+                      {{/each}}
+                    </ul>
+                  </div>
+              </div>
+              <div class="labels-row">
+                <label>Labels:</label>
+                {{#each bug.labels}}
+                  <span class="badge" style="background-color: #{{unbound this.color}}">{{this.label}}<i title="remove" class="clickable fa fa-times-circle" {{action 'removelabel' this}}></i></span>
+                {{/each}}
+                <div class="dropdown">
+                    <a data-toggle="dropdown" href="#"><i title="Add Label" class="clickable fa fa-plus"></i></a>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                      {{#each labels}}
+                        <li class="clickable" role="presentation"><a role="menuitem" {{action 'addlabel' this}}>{{this.label}}</a></li>
+                      {{/each}}
+                    </ul>
+                  </div>
+              </div>
+              <div class="status-row">
+                <label>Status:</label>{{bug.status}} / {{#if bug.assigned}}Assigned ({{bug.assigned}} <a class="clickable" {{action 'clearassignment'}}>clear</a>){{else}}Unassigned (<a class="clickable" {{action 'take'}}>Take</a>){{/if}}
+              </div>
+            </div>
+          </div>
+          <div class="bug-comments">
+            <div class="bug-comment">
+              <div class="summary">
+                <span class="commenter">{{bug.createdby}}</span>
+                <span class="comment-date">commented {{format-date bug.created}}</span>
+                <span class="controls">
+                  {{#if bug.savingdescription}}
+                    <i title="Saving" class="fa fa-refresh fa-spin"></i>
+                  {{else}}
+                    <i {{action 'editdescription'}} title="Edit Bug" class="clickable fa fa-edit"></i>
+                  {{/if}}
+                </span>
+              </div>
+              <div class="comment">
+                {{#if bug.editingdesc}}
+                  {{comment-editor field=bug.description}}
+                  <div class="controls">
+                    <button type="button" {{action 'saveeditdesc' this}} class="btn btn-primary btn-sm">Save</button>
+                    <a class="clickable" {{action 'canceleditdesc' this}}>Cancel</a>
+                  </div>
+                {{else}}
+                  {{format-markdown bug.description}}
+                {{/if}}
+              </div>
+            </div>
+            {{#each bug.comments}}
+              <div class="bug-comment">
+                <div class="summary">
+                  <span class="commenter">{{this.user}}</span>
+                  <span class="comment-date">commented {{format-date this.date}}</span>
+                  <span class="controls">
+                  {{#if this.saving}}
+                    <i title="Saving" class="fa fa-refresh fa-spin"></i>
+                  {{else}}
+                    <i title="Edit Comment" class="clickable fa fa-edit" {{action 'editcomment' this}}></i><i title="Delete Comment" class="clickable fa fa-times-circle" {{action 'deletecomment' this}}></i>
+                  {{/if}}
+                  </span>
+                </div>
+                <div class="comment">
+                  {{#if this.editing}}
+                    {{comment-editor field=this.comment}}
+                    <div class="controls">
+                    <button type="button" {{action 'saveedit' this}} class="btn btn-primary btn-sm">Save</button>
+                    <a class="clickable" {{action 'canceledit' this}}>Cancel</a>
+                    </div>
+                  {{else}}
+                    {{format-markdown this.comment}}
+                  {{/if}}
+                </div>
+              </div>
+            {{/each}}
+          </div>
+          <div class="add-comment">
+            {{comment-editor field=newcomment}}
+            <div class="controls">
+              {{#if bug.isopen}}
+                <button type="button" {{action 'close'}} class="btn btn-primary btn-sm">Close &amp; Comment</button>
+                <button type="button" {{action 'comment'}} class="btn btn-primary btn-sm">Comment</button>
+              {{else}}
+                <button type="button" {{action 'reopen'}} class="btn btn-primary btn-sm">Reopen &amp; Comment</button>
+              {{/if}}
+            </div>
+          </div>
+        </div>
+      {{else}}
+        <div class="empty-results">Unable to find requested bug</div<
+      {{/if}}
+    {{/if}}
+  </div>
+</script>

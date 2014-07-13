@@ -1,0 +1,50 @@
+<!-- Create Bug Modal -->
+<div class="modal fade" id="create-bug-modal" tabindex="-1" role="dialog" aria-labelledby="create-bug-modal-label" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="create-bug-modal-label">Create Bug</h4>
+      </div>
+      <div class="modal-body">
+        <div class="create-bug">
+          <div class="subject-row">
+            {{input value=newbug.subject placeholder="Enter Subject"}}
+          </div>
+          <div class="priority-row">
+            <label>Priority:</label> {{#if newbug.priority}}<span id="newbug-priority-display" class="badge badge-{{unbound newbug.priority.css_class}}">{{newbug.priority.label}}</span>{{/if}}
+              <div class="dropdown">
+                <a data-toggle="dropdown" href="#"><i title="Change Priority" class="clickable fa fa-toggle-down fa-lg"></i></a>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                  {{#each priorities}}
+                    <li class="clickable" role="presentation"><a role="menuitem" {{action 'editprioritynewbug' this}}>{{this.label}}</a></li>
+                  {{/each}}
+                </ul>
+              </div>
+          </div>
+          <div class="labels-row">
+            <label>Labels:</label>
+            {{#each newbug.labels}}
+              <span class="badge" style="background-color: #{{unbound this.color}}">{{this.label}}<i title="remove" class="clickable fa fa-times-circle" {{action 'removelabelnewbug' this}}></i></span>
+            {{/each}}
+            <div class="dropdown">
+                <a data-toggle="dropdown" href="#"><i title="Add Label" class="clickable fa fa-plus"></i></a>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                  {{#each labels}}
+                    <li class="clickable" role="presentation"><a role="menuitem" {{action 'addnewbuglabel' this}}>{{this.label}}</a></li>
+                  {{/each}}
+                </ul>
+              </div>
+          </div>
+          <div class="new-bug-description">
+            {{comment-editor field=newbug.description}}
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary" {{action 'createbug' bug}}>Create</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,15 @@
+<script type="text/x-handlebars" id="components/comment-editor">
+  <ul class="nav nav-tabs" data-tabs="tabs">
+      <li class="active"><a id="editorlink" data-toggle="tab" href="#editor">Edit</a></li>
+      <li><a id="previewerlink" data-toggle="tab" href="#previewer">Preview</a></li>
+  </ul>
+  <div class="tab-content">
+      <div class="tab-pane active" id="editor">
+          <div class="twap autosizedchild">{{textarea value=field}}</div>
+      </div>
+      <div class="tab-pane" id="previewer">
+          {{format-markdown field}}
+      </div>
+  </div>
+  <div class="markdown-help-row"><a href="http://daringfireball.net/projects/markdown/basics" target="_blank">Markdown Help</a></div>
+</script>
