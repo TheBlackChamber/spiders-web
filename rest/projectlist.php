@@ -5,7 +5,7 @@ try{
 
 	$projects = array();
 
-	$get_all_projects_query = $mysqli->prepare("SELECT `key`, name FROM project");
+	$get_all_projects_query = $mysqli->prepare("SELECT `key`, name FROM project order by name asc");
 	$get_all_projects_query->execute();
 	$get_all_projects_query->bind_result($returned_key, $returned_name);
 

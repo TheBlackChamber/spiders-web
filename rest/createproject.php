@@ -1,4 +1,6 @@
 <?PHP
+require_once('dbsupport.php');
+require_once('model/project.php');
 try{
 	$label = $_REQUEST['label'];
 	$key = $_REQUEST['key'];
@@ -16,22 +18,29 @@ try{
 		$get_user_query->execute();
 		$get_user_query->bind_result($returned_user_id);
 
-		if($get_user_query->find()){
-			$get_project_query = $mysqli->prepare("SELECT id, name, key FROM project WHERE key = ?");
+		if($get_user_query->fetch()){
+			$get_user_query->free_result();
+			$get_project_query = $mysqli->prepare("SELECT id FROM project WHERE `key` = ?");
+			
 			$get_project_query->bind_param('s', $key);
 			$get_project_query->execute();
-			$get_project_query->bind_result($returned_label,$returned_key, $returned_id);
+			$get_project_query->bind_result($returned_id);
 
 			if($get_project_query->fetch()){
 				//Project already exists. Return error
 				http_response_code(409);
 			}else{
 				//Project doesnt exist. Create it.
-		    	$insert_user_query = $mysqli->prepare("INSERT INTO project (name,created_on,key,created_by) VALUES (?,NOW(),?,?)");
-		    	$insert_user_query->bind_param("ss",$json->email,$json->authtoken);
+		    	$insert_user_query = $mysqli->prepare("INSERT INTO project (name,created_on,`key`,created_by) VALUES (?,NOW(),?,?)");
+		    	$insert_user_query->bind_param("ssi",$label,$key,$returned_user_id);
 		    	$insert_user_query->execute();
 		    	$insert_user_query->close();
-		    	http_response_code(200);
+
+		    	$project = new project;
+				$project->key = $key;
+				$project->label = $label;
+
+		    	echo json_encode($project);
 			}
 			$get_project_query->close();
 		}else{
