@@ -31,7 +31,7 @@ try{
 				http_response_code(409);
 			}else{
 				//Project doesnt exist. Create it.
-		    	$insert_user_query = $mysqli->prepare("INSERT INTO project (name,created_on,`key`,created_by) VALUES (?,NOW(),?,?)");
+		    	$insert_user_query = $mysqli->prepare("INSERT INTO project (name,created_on,`key`,created_by) VALUES (?,NOW(),?,?,1)");
 		    	$insert_user_query->bind_param("ssi",$label,$key,$returned_user_id);
 		    	$insert_user_query->execute();
 		    	$insert_user_query->close();

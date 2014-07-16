@@ -1,5 +1,6 @@
 <?PHP
 require_once('model/bug.php');
+require_once('model/project.php');
 require_once('model/label.php');
 require_once('model/comment.php');
 date_default_timezone_set('US/Eastern');
