@@ -5,6 +5,7 @@ if (typeof console == "undefined") {
 }
 requirejs.config({
     "baseUrl": "lib",
+    "urlArgs": "bust=" +  (new Date()).getTime(),
     "paths": {
       ember: ["//cdnjs.cloudflare.com/ajax/libs/ember.js/1.6.0/ember","ember-1.6.0"],
       handlebars: ["//cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.3.0/handlebars","handlebars-1.3.0"],
