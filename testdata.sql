@@ -1,0 +1,12 @@
+insert into user (id,email,created_on,last_seen) values (1,'sminogue@yahoo.com',NOW(),NOW());
+insert into project (id,name,created_by,`key`,`status`) values (1,'My Library',1,'mylibrary',1);
+insert into project (id,name,created_by,`key`,`status`) values (2,'Commons Encryption',1,'commonsencryption',1);
+insert into bug (project,reporter,assigned,subject,description,created,modified,status,priority) values (1,1,1,'New Open Assigned Bug Subject','Bug Description',NOW(),NOW(),1,1);
+insert into bug (project,reporter,subject,description,created,modified,status,priority) values (1,1,'New Open Unassigned Bug Subject','Bug Description',NOW(),NOW(),1,2);
+insert into bug (project,reporter,assigned,subject,description,created,modified,status) values (1,1,1,'New Closed Assigned Bug Subject','Bug Description',NOW(),NOW(),2);
+insert into bug (project,reporter,assigned,subject,description,created,modified,status) values (2,1,1,'New Closed Assigned Bug Subject','Bug Description',NOW(),NOW(),2);
+insert into bug_label (bug_id,label_id) values (1,1);
+insert into bug_label (bug_id,label_id) values (1,2);
+insert into bug_label (bug_id,label_id) values (1,3);
+insert into bug_label (bug_id,label_id) values (3,2);
+insert into bug_label (bug_id,label_id) values (2,1);

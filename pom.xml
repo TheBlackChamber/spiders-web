@@ -1,0 +1,88 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>net.theblackchamber</groupId>
+	<artifactId>spiders-web</artifactId>
+	<version>1.0.0</version>
+	<url>http://theblackchamber.github.io/spiders-web/</url>
+	<name>spiders-web</name>
+	<description>PHP and EmberJS Bug Tracking web app inspired by github issues.</description>
+	<inceptionYear>2014</inceptionYear>
+
+	<issueManagement>
+		<system>GitHub Issues</system>
+		<url>https://github.com/theblackchamber/spiders-web/issues</url>
+	</issueManagement>
+
+	<organization>
+		<name>The Black Chamber</name>
+		<url>https://github.com/TheBlackChamber</url>
+	</organization>
+
+	<scm>
+		<url>https://github.com/theblackchamber/spiders-web</url>
+		<connection>scm:git:git://github.com/TheBlackChamber/spiders-web.git</connection>
+		<developerConnection>scm:git:git@github.com:theblackchamber/spiders-web.git</developerConnection>
+	</scm>
+
+	<developers>
+		<developer>
+			<id>sminogue</id>
+			<name>Seamus Minogue</name>
+			<roles>
+				<role>architect</role>
+				<role>developer</role>
+			</roles>
+			<organizationUrl>https://github.com/sminogue</organizationUrl>
+		</developer>
+	</developers>
+
+	<licenses>
+		<license>
+			<name>The MIT License (MIT)</name>
+			<url>http://opensource.org/licenses/MIT</url>
+			<distribution>repo</distribution>
+			<comments>The MIT License (MIT)</comments>
+		</license>
+	</licenses>
+
+	<dependencies>
+          <!-- Fly way 
+          <dependency>
+            <groupId>com.googlecode.flyway</groupId>
+            <artifactId>flyway-core</artifactId>
+            <version>1.7</version>
+          </dependency>-->
+ 
+          <!-- mysql jdbc driver -->
+          <dependency>
+              <groupId>mysql</groupId>
+              <artifactId>mysql-connector-java</artifactId>
+              <version>5.1.21</version>
+          </dependency>
+ 
+      </dependencies>
+
+    <build>
+        <plugins>
+        	<plugin>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-maven-plugin</artifactId>
+                <version>3.0</version>
+                <configuration>
+                    <user>root</user>
+	                <driver>com.mysql.jdbc.Driver</driver>
+	                <url>jdbc:mysql://localhost:3306/spidersweb</url>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.h2database</groupId>
+                        <artifactId>h2</artifactId>
+                        <version>1.3.170</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

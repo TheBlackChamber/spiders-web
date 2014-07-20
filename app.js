@@ -33,6 +33,7 @@ requirejs.config({
     		exports: "Showdown"
     	},
     	bootstrap: {
+        deps: ['jquery'],
     		exports: "Bootstrap"
     	},
     	autoresize : {

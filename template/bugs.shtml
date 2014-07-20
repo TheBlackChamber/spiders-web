@@ -27,6 +27,14 @@
         <div class="right-pane">
           <div class="bug-filters">
             <button type="button" {{action 'showcreatebug'}} class="createbutton btn btn-primary btn-sm">New Bug</button>
+              <div class="btn-group" data-toggle="buttons">
+                <label class="btn btn-default btn-xs" {{action 'filterstatus' 'opentoggle'}}>
+                  <input type="radio" name="options" id="opentoggle" > Open</input>
+                </label>
+                <label class="btn btn-default btn-xs" {{action 'filterstatus' 'closedtoggle'}}>
+                  <input type="radio" name="options" id="closedtoggle" > Closed</input>
+                </label>
+              </div>
           </div>
             <ul class="bug-list">
               {{#if model.showloading}}
