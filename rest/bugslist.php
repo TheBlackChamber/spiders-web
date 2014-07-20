@@ -101,6 +101,23 @@ try{
 				array_push($value->labels, $label);
 			}
 			$bug_label_query->free_result();
+
+			$bug_comment_query = $conn->prepare("select comment.id,comment.contents,comment.created_on, SUBSTRING(user.email,1,INSTR(user.email,'@')-1) as creator from comment left join user on comment.created_by = user.id where comment.bug_id = ?");
+			$bug_comment_query->bind_param('i',$value->id);
+			$bug_comment_query->execute();
+			$bug_comment_query->bind_result($comment_id,$content,$created_on,$createdby);
+
+			$value->comments = array();
+			while($bug_comment_query->fetch()){
+				$comment = new comment;
+				$comment->id = $comment_id;
+				$comment->comment = $content;
+				$comment->date = $created_on;
+				$comment->user = $createdby;
+				array_push($value->comments, $comment);
+			}
+			$bug_comment_query->free_result();
+
 		}
 
 		//Print out JSON bug list

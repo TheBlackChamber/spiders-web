@@ -35,7 +35,7 @@
 	        </div>
 	      </div>
 	    </div>
-
+		<!--#include virtual="template/error.shtml" -->
 		<script type="text/x-handlebars" data-template-name="loading">
 	      <!--#include virtual="template/loading.shtml" -->
 	    </script>
