@@ -11,5 +11,5 @@
           {{format-markdown field}}
       </div>
   </div>
-  <div class="markdown-help-row"><a href="http://daringfireball.net/projects/markdown/basics" target="_blank">Markdown Help</a></div>
+  <div class="markdown-help-row"><a href="http://whatismarkdown.com/" target="_blank">Markdown Help</a></div>
 </script>
