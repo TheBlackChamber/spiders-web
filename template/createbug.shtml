@@ -9,12 +9,26 @@
       <div class="modal-body">
         <div class="create-bug">
           <div class="subject-row">
+            <div class="dropdown">
+              <button class="btn btn-default dropdown-toggle" type="button" id="selectedproject" data-toggle="dropdown">
+                <span id="selectedprojectlabel">Select Project</span>
+                <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" role="menu" aria-labelledby="selectedproject">
+                {{#each model.projectlist}}
+                  <li role="presentation"><a role="menuitem" tabindex="-1" {{action 'selectprojectnewbug' this}}>{{this.label}}</a></li>
+                {{/each}}
+              </ul>
+            </div>
+          </div>
+          <div class="subject-row">
             {{input value=newbug.subject placeholder="Enter Subject"}}
           </div>
           <div class="priority-row">
             <label>Priority:</label> {{#if newbug.priority}}<span id="newbug-priority-display" class="badge badge-{{unbound newbug.priority.css_class}}">{{newbug.priority.label}}</span>{{/if}}
               <div class="dropdown">
-                <a data-toggle="dropdown" href="#"><i title="Change Priority" class="clickable fa fa-toggle-down fa-lg"></i></a>
+
+                <a data-toggle="dropdown" href="#"><span title="Change Priority" class="clickable glyphicon glyphicon-chevron-down"></span></a>
                 <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
                   {{#each priorities}}
                     <li class="clickable" role="presentation"><a role="menuitem" {{action 'editprioritynewbug' this}}>{{this.label}}</a></li>
@@ -25,10 +39,10 @@
           <div class="labels-row">
             <label>Labels:</label>
             {{#each newbug.labels}}
-              <span class="badge" style="background-color: #{{unbound this.color}}">{{this.label}}<i title="remove" class="clickable fa fa-times-circle" {{action 'removelabelnewbug' this}}></i></span>
+              <span class="badge" style="background-color: #{{unbound this.color}}">{{this.label}}<span title="remove" style="margin-left: 3px;" class="clickable glyphicon glyphicon-remove" {{action 'removelabelnewbug' this}}></span></span>
             {{/each}}
             <div class="dropdown">
-                <a data-toggle="dropdown" href="#"><i title="Add Label" class="clickable fa fa-plus"></i></a>
+                <a data-toggle="dropdown" href="#"><span title="Add Label" class="clickable glyphicon glyphicon-plus-sign"></span></a>
                 <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
                   {{#each labels}}
                     <li class="clickable" role="presentation"><a role="menuitem" {{action 'addnewbuglabel' this}}>{{this.label}}</a></li>

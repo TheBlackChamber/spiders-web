@@ -44,7 +44,7 @@
                   {{#if this.id}}
                     <li class="bug-item">
                       <div class="subject-line">
-                        <span class="clickable bug-subject" title="{{unbound this.subject}}"><a href="bug/{{unbound this.id}}" {{action 'viewbug' this}}>[{{this.project}}] {{this.subject}}</a></span>
+                        <span class="clickable bug-subject" title="{{unbound this.subject}}"><a href="bug/{{unbound this.id}}" {{action 'viewbug' this}}>[{{this.project.label}}] {{this.subject}}</a></span>
                         {{#if this.priority}}
                         <span class="badge badge-{{unbound this.priority.css_class}}">Priority: {{this.priority.label}}</span>
                         {{/if}}
