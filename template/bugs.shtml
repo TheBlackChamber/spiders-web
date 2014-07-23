@@ -55,7 +55,7 @@
                       </div>
                       <div class="details-line">
                         Created by: {{this.createdby}} (last modified: {{format-date this.modified}})
-                        <span class="assignment">{{#if this.assigned}}Assigned: {{this.assigned}}{{/if}}</span>
+                        <span class="assignment">{{#if this.assigned}}Assigned: {{this.assigned}}{{/if}} {{#unless this.ismine}}(<a class="clickable" {{action 'takebug' this}}>take</a>){{/unless}}</span>
                       </div>
                     </li>
                   {{else}}
