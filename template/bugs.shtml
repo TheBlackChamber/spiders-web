@@ -3,26 +3,33 @@
    <!--#include virtual="createproject.shtml" -->
     <div class="content">
         <div class="left-pane">
-            <ul class="nav nav-pills nav-stacked">
-                <li><a lid="unassigned" class="assignment clickable" {{action 'assignment' 'unassigned'}}>Unassigned Bugs</a></li>
-                <li><a lid="mine" class="assignment clickable" {{action 'assignment' 'mine'}}>My Bugs</a></li>
-                <li><a lid="all" class="assignment clickable" {{action 'assignment' 'all'}}>All Bugs</a></li>
-            </ul>
-            <div class="heading">Projects</div>
-            <div class="createprojbuttoncontainer">
-              <button type="button" {{action 'showcreateproject'}} class="createprojbutton btn btn-primary btn-sm">Create Project</button>
-            </div>
-            <ul class="projlist nav nav-pills nav-stacked">
-              {{#if model.showprojloading}}
-                <!--#include virtual="loading.shtml" -->
+          <!--
+          <div class="admin-pane">
+            <button type="button" class="btn btn-primary btn-xs" data-dismiss="modal" {{action 'adminbutton'}}>
+              <span class="glyphicon glyphicon-cog"></span>  Admin
+            </button>
+          </div>
+          -->
+          <ul class="nav nav-pills nav-stacked">
+              <li><a lid="unassigned" class="assignment clickable" {{action 'assignment' 'unassigned'}}>Unassigned Bugs</a></li>
+              <li><a lid="mine" class="assignment clickable" {{action 'assignment' 'mine'}}>My Bugs</a></li>
+              <li><a lid="all" class="assignment clickable" {{action 'assignment' 'all'}}>All Bugs</a></li>
+          </ul>
+          <div class="heading">Projects</div>
+          <div class="createprojbuttoncontainer">
+            <button type="button" {{action 'showcreateproject'}} class="createprojbutton btn btn-primary btn-sm">Create Project</button>
+          </div>
+          <ul class="projlist nav nav-pills nav-stacked">
+            {{#if model.showprojloading}}
+              <!--#include virtual="loading.shtml" -->
+            {{else}}
+              {{#each model.projectlist}}
+                <li><a lid="{{unbound this.key}}" class="projfilterlink clickable" {{action 'project' this}}>{{this.label}}</a></li>
               {{else}}
-                {{#each model.projectlist}}
-                  <li><a lid="{{unbound this.key}}" class="projfilterlink clickable" {{action 'project' this}}>{{this.label}}</a></li>
-                {{else}}
-                  <div class="empty-results">No Projects Found</div>
-                {{/each}}
-              {{/if}}
-            </ul>
+                <div class="empty-results">No Projects Found</div>
+              {{/each}}
+            {{/if}}
+          </ul>
         </div>
         <div class="right-pane">
           <div class="bug-filters">
@@ -44,7 +51,7 @@
                   {{#if this.id}}
                     <li class="bug-item">
                       <div class="subject-line">
-                        <span class="clickable bug-subject" title="{{unbound this.subject}}"><a href="bug/{{unbound this.id}}" {{action 'viewbug' this}}>[{{this.project.label}}] {{this.subject}}</a></span>
+                        <span class="clickable bug-subject" title="{{unbound this.subject}}"><a href="./index.shtml#bug/{{unbound this.id}}" {{action 'viewbug' this}}>[{{this.project.label}}] {{this.subject}}</a></span>
                         {{#if this.priority}}
                         <span class="badge badge-{{unbound this.priority.css_class}}">Priority: {{this.priority.label}}</span>
                         {{/if}}

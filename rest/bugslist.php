@@ -133,30 +133,7 @@ try{
 
 	//Build SQL to query database
 	$bugs_list = array();
-	/*
-	$sqlquery = "select b.id as id, p.name as project_name,p.key as project_key,`subject`,description,created,modified,bstatus.label as `status`,SUBSTRING(assignedu.email,1,INSTR(assignedu.email,'@')-1) as assigned_email,SUBSTRING(reporteru.email,1,INSTR(reporteru.email,'@')-1) as reporter_email, priority.id as priority_id, priority.label as priority_label, priority.css_class as priority_class from bug as b left join user as assignedu ON assignedu.id = b.assigned left join user as reporteru ON reporteru.id = b.reporter left join project as p ON p.id = b.project left join priority as priority on priority.id = b.priority join bug_status as bstatus ON bstatus.id = b.status where bstatus.label = ?";
-	$bug_label_query_sql = 'select id, label, color from bug_label join label on label_id = label.id where bug_id = ?';
-
-	if(!empty($assignment) and $assignment != 'all' and $assignment != 'unassigned'){
-		$assignmentquery = " AND assignedu.email = ?";
-	}else if(!empty($assignment) and $assignment == 'unassigned'){
-		$assignmentquery = " AND assignedu.email is null";
-	}
-
-	if(!empty($project) and $project != ''){
-		$projectquery = "AND p.key = ?";
-	}
-
-	if(isset($assignmentquery)){
-		$sqlquery = $sqlquery . $assignmentquery;
-	}
-
-	if(isset($assignmentquery) && isset($projectquery)){
-		$sqlquery = $sqlquery . " AND " . $projectquery;
-	}else if(isset($projectquery)){
-		$sqlquery = $sqlquery . $projectquery;
-	}
-*/
+	
 	if($status == 'opentoggle'){
 		$statusstring = 'Open';
 	}else{

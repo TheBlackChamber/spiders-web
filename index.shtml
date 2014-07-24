@@ -3,16 +3,20 @@
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">
 		<link rel="stylesheet/less" type="text/css" href="css/common.less">
+		<link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 		<script src="lib/require-2.1.14.min.js" data-main="app"></script>
 	</head>
 	<body>
 		<div id="loading-div-background"></div>
 		<div class="banner">
-			<div class="banner-row">Spiders Web</div>
+			<div class="banner-row" class="clickable" onclick="window.location.replace('index.shtml');">Spiders Web</div>
 			<div class="login-row">
+				<div>
 				<a href="#" id="loginlink">Login</a>
 				<span id="logout-pane" style="display: none;"><span id="display-username"></span>(<a style="display: none;" href="#" id="logoutlink">Logout</a>)</span>
+				</div>
 			</div>
+			
 		</div>
 		<script type="text/x-handlebars">
 	      {{outlet}}
