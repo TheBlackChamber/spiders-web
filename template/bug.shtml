@@ -63,7 +63,7 @@
                   </div>
               </div>
               <div class="status-row">
-                <label>Status:</label>{{bug.status}} / {{#if bug.assigned}}Assigned ({{bug.assigned}} <a class="clickable" {{action 'clearassignment'}}>clear</a>){{else}}Unassigned (<a class="clickable" {{action 'take'}}>Take</a>){{/if}}
+                <label>Status:</label>{{bug.status}} / {{#if bug.assigned}}Assigned ({{bug.assigned}}{{#if bug.ismine}} <a class="clickable" {{action 'clearassignment'}}>clear</a>{{/if}}){{else}}Unassigned (<a class="clickable" {{action 'take'}}>Take</a>){{/if}}
               </div>
             </div>
           </div>

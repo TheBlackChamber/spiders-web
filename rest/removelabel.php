@@ -2,12 +2,11 @@
 require_once('dbsupport.php');
 try{
 	$bugid = $_REQUEST['bugid'];
-	$labels = json_decode($_REQUEST['labels']);
+	$labelid = json_decode($_REQUEST['labelid']);
 	
 	if (!isset($_COOKIE["auth"])){
 		http_response_code(401);
 	}else{
-error_log('IN THIS TO WIN');
 		//Get cookie
 		$auth_cookie = json_decode($_COOKIE['auth']);
 
@@ -20,23 +19,12 @@ error_log('IN THIS TO WIN');
 		if($get_user_query->fetch()){
 			$get_user_query->free_result();
 			
-			$get_bug_label_query = $mysqli->prepare("SELECT bug_id, label_id from bug_label where bug_id = ? and label_id = ?");
+			$insert_bug_label_query = $mysqli->prepare("DELETE FROM bug_label WHERE bug_id = ? and label_id = ?");
+			$insert_bug_label_query->bind_param('ii',$bugid,$labelid);
+			$insert_bug_label_query->execute();
+			$insert_bug_label_query->close();
 
-			foreach ($labels as &$label) {
-				$get_bug_label_query->bind_param('ii',$bugid,$label);
-			}
-			
-
-/*
-
-
-			$update_bug_query = $mysqli->prepare("UPDATE bug set priority = ? where id = ?");
-			
-			$update_bug_query->bind_param('ii', $priorityid,$bugid);
-			$update_bug_query->execute();
-			$update_bug_query->close();
-*/
-			echo json_encode($bugid);
+			echo json_encode($labelid);
 
 		}else{
 			http_response_code(403);
