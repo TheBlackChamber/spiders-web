@@ -1,8 +1,6 @@
 <?PHP
 require_once('dbsupport.php');
 try{
-	$bugid = $_REQUEST['bugid'];
-	$comment = $_REQUEST['comment'];
 	$commentid = $_REQUEST['id'];
 
 	if (!isset($_COOKIE["auth"])){
@@ -21,21 +19,13 @@ try{
 		if($get_user_query->fetch()){
 			$get_user_query->free_result();
 			
-			if(isset($bugid)){
-				$insert_comment_query = $mysqli->prepare("INSERT into comment (contents, created_by, created_on, bug_id) VALUES (?,?,NOW(),?)");
-				$insert_comment_query->bind_param('sii',$comment,$returned_user_id,$bugid);
-				$insert_comment_query->execute();
-				$comment_id = $mysqli->insert_id;
-				$insert_comment_query->free_result();
-			}else{
-				$update_comment_query = $mysqli->prepare("UPDATE comment set contents=? where id = ?");
-				$update_comment_query->bind_param('si',$comment,$commentid);
-				$update_comment_query->execute();
-				$comment_id = $mysqli->insert_id;
-				$update_comment_query->free_result();
-			}
+			$update_comment_query = $mysqli->prepare("DELETE from comment where id = ?");
+			$update_comment_query->bind_param('i',$commentid);
+			$update_comment_query->execute();
+			$update_comment_query->free_result();
+			
 
-			echo json_encode($comment_id);
+			echo json_encode($commentid);
 
 		}else{
 			http_response_code(403);
