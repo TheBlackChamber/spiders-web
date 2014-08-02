@@ -2,7 +2,7 @@
 	<head>
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">
-		<link rel="stylesheet/less" type="text/css" href="css/common.less">
+		<link rel="stylesheet" type="text/css" href="css/common.css">
 		<link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 		<script src="lib/require-2.1.14.min.js" data-main="app"></script>
 	</head>
