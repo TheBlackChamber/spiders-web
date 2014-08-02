@@ -15,7 +15,7 @@
               {{/if}}
             </div>
             <div class="controls">
-              <button type="button" {{action 'showcreatebug'}} class="createbutton btn btn-primary btn-sm">New Bug</button>
+              <!--<button type="button" {{action 'showcreatebug'}} class="createbutton btn btn-primary btn-sm">New Bug</button>-->
             </div>
           </div>
           <div class="bug-header">
